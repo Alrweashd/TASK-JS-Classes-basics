@@ -21,8 +21,32 @@
  */
 class Person {
   // continue the code here
-}
+  constructor(firstName, lastName, gender, birthYear) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.birthYear = birthYear;
+  }
+  printName() {
+    console.log(`${this.firstName} ${this.lastName}`);
+  }
 
+  calculateAge() {
+    let year = new Date().getFullYear();
+    return year - this.birthYear;
+  }
+}
+let personA = new Person("Turki", "Alazemi", "M", "1998");
+personA.printName();
+console.log(personA.calculateAge());
+
+let personB = new Person("Ahmed", "B", "M", "1993");
+personB.printName();
+console.log(personB.calculateAge());
+
+let personC = new Person("Jonh", "R", "M", "1990");
+personC.printName();
+console.log(personC.calculateAge());
 /** (Question 2): (15000 Points)
  * 1. Write a class `Movie`, give it the following properties
  * - title
@@ -46,8 +70,33 @@ class Person {
 
 class Movie {
   // continue the code here
-}
 
+  constructor(title, duration, genre, ratings = []) {
+    this.title = title;
+    this.duration = duration;
+    this.genre = genre;
+    this.ratings = ratings;
+  }
+
+  rate(rating) {
+    if (rating >= 0 && rating <= 10) {
+      this.ratings.push(rating);
+    } else {
+      console.log("rating must be between 0 and 10\n");
+    }
+  }
+  averageRating() {
+    let sum = this.ratings.reduce((rate1, rate2) => {
+      return rate1 + rate2;
+    }, 0);
+    return sum / this.ratings.length;
+  }
+}
+let movie1 = new Movie("Fargo", 1.5, "Crime", [10, 8, 7, 4, 2]);
+console.log(movie1.ratings);
+movie1.rate(5);
+console.log(movie1.ratings);
+console.log(movie1.averageRating());
 /** (Question 3): (1000 Points)
  * 1. Create a class `Actor` that inherits `Person`, and adds the following properties
  * - movies: array of `Movie`
@@ -58,3 +107,24 @@ class Movie {
  */
 
 // write the class here
+class Actor extends Person {
+  constructor(movies = []) {
+    super();
+    this.movies = movies;
+  }
+
+  addMovie(movie) {
+    if (!this.movies.includes(movie)) {
+      this.movies.push(movie);
+      console.log(`movie ${movie} has been added`);
+    } else console.log(`movie ${movie} already exist`);
+  }
+}
+let actorA = new Actor(["Fargo", "Toy story", "Batman"]);
+console.log(actorA.movies);
+
+actorA.addMovie("Fargo");
+console.log(actorA.movies);
+
+actorA.addMovie("Superman");
+console.log(actorA.movies);
