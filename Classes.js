@@ -36,15 +36,15 @@ class Person {
     return year - this.birthYear;
   }
 }
-let personA = new Person("Turki", "Alazemi", "M", "1998");
+let personA = new Person("Turki", "Alazemi", "M", 1998);
 personA.printName();
 console.log(personA.calculateAge());
 
-let personB = new Person("Ahmed", "B", "M", "1993");
+let personB = new Person("Ahmed", "B", "M", 1993);
 personB.printName();
 console.log(personB.calculateAge());
 
-let personC = new Person("Jonh", "R", "M", "1990");
+let personC = new Person("Jonh", "R", "M", 1990);
 personC.printName();
 console.log(personC.calculateAge());
 /** (Question 2): (15000 Points)
@@ -71,7 +71,7 @@ console.log(personC.calculateAge());
 class Movie {
   // continue the code here
 
-  constructor(title, duration, genre, ratings = []) {
+  constructor(title, duration, genre, ratings) {
     this.title = title;
     this.duration = duration;
     this.genre = genre;
@@ -79,7 +79,7 @@ class Movie {
   }
 
   rate(rating) {
-    if (rating >= 0 && rating <= 10) {
+    if (rating > 0 && rating < 10) {
       this.ratings.push(rating);
     } else {
       console.log("rating must be between 0 and 10\n");
@@ -93,6 +93,7 @@ class Movie {
   }
 }
 let movie1 = new Movie("Fargo", 1.5, "Crime", [10, 8, 7, 4, 2]);
+let movie2 = new Movie("Superman", 1.5, "Sci-fi", [9, 6, 7, 4, 2]);
 console.log(movie1.ratings);
 movie1.rate(5);
 console.log(movie1.ratings);
@@ -108,23 +109,24 @@ console.log(movie1.averageRating());
 
 // write the class here
 class Actor extends Person {
-  constructor(movies = []) {
-    super();
-    this.movies = movies;
+  movies = [];
+  constructor(firstName, lastName, gender, birthYear) {
+    super(firstName, lastName, gender, birthYear);
+    //this.movies = movies;
   }
 
   addMovie(movie) {
     if (!this.movies.includes(movie)) {
       this.movies.push(movie);
-      console.log(`movie ${movie} has been added`);
-    } else console.log(`movie ${movie} already exist`);
+      console.log(`movie ${movie.title} has been added`);
+    } else console.log(`movie ${movie.title} already exist`);
   }
 }
-let actorA = new Actor(["Fargo", "Toy story", "Batman"]);
+let actorA = new Actor("jonny", "bob", "M", 1974);
 console.log(actorA.movies);
 
-actorA.addMovie("Fargo");
+actorA.addMovie(movie1);
 console.log(actorA.movies);
-
-actorA.addMovie("Superman");
+actorA.addMovie(movie1);
+actorA.addMovie(movie2);
 console.log(actorA.movies);
